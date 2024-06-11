@@ -13,10 +13,12 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}-latest
     strategy:
+      fail-fast: false
       matrix:
         node: [18, 20, 22]
+        os: [ubuntu, macos, windows]
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v4
@@ -26,10 +28,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: 🏗 Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: 1.x
+      - name: 🧪 Test upload for correctness
+        run: node ./src/test.js
 
-      - name: 🧪 Test core
-        run: bun run test
+      - name: 🧪 Test upload for experimental warnings
+        run: node ./src/test.js
+        env:
+          TEST_NO_WARNINGS: true

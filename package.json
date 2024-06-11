@@ -3,13 +3,7 @@
   "name": "test-stream-formdata",
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "test": "node ./test.js"
-  },
   "devDependencies": {
     "@types/node": "^20.14.2"
-  },
-  "dependencies": {
-    "undici": "^6.18.2"
   }
 }
